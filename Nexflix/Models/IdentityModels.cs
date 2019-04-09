@@ -26,8 +26,7 @@ namespace Nexflix.Models
         }
 
         public DbSet<Movie> Movies { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Actor> Actors { get; set; }
+        public DbSet<Category> Categories { get; set; }        
 
         public static ApplicationDbContext Create()
         {
