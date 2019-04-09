@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Nexflix.Models.Movie>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ranking)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ranking)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", null, null, new { @onclick= "GetMovieById(" + item.Id + ", event)" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section scripts {
+
+    <script type="text/javascript">
+
+        GetMovieById(2);
+
+        function GetMovieById(id, event) {
+            event.preventDefault();
+            $.ajax({
+
+                type: "GET",
+                url: "/Movies/GetMovieById/" + id,
+                // data: JSON.stringify(Student),
+                // dataType: "json",
+                // contentType: 'application/json; charset=utf-8',
+                success: function (res) {
+                    console.log(res.data);
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+
+            })
+        }
+        
+
+    </script>
+
+}
